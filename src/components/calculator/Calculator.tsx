@@ -27,12 +27,12 @@ export function Calculator() {
       case "equals":
         doOperation(operator);
         break;
+      case "reset":
+        console.log("ho premuto il tasto reset");
+        resetAll();
+        break;
     }
-
-    // console.log(typeof data);
-    // console.log(pressedFirstStack);
   };
-  // console.log(operator);
 
   function doOperation(operator: any) {
     let res;
@@ -46,23 +46,26 @@ export function Calculator() {
         setResult(res);
         resetStacks();
         break;
+      // Minus
       case "-":
         res = first - second;
         setResult(res);
         resetStacks();
         break;
+      // multi
       case "x":
         res = first * second;
         setResult(res);
         resetStacks();
         break;
+      //divide
       case "÷":
         res = first / second;
         setResult(res);
         resetStacks();
         break;
+
       default:
-      // code block
     }
   }
 
@@ -72,6 +75,12 @@ export function Calculator() {
     currentpressedSecondStack([""]);
     currentpressedFirstStack([""]);
     setOperator("");
+  }
+  function resetAll() {
+    currentpressedSecondStack([""]);
+    currentpressedFirstStack([""]);
+    setOperator("");
+    setResult("");
   }
   return (
     <div className={styles.calculatorWrapper}>
@@ -85,12 +94,13 @@ export function Calculator() {
     </div>
   );
 }
-// pressedFirstStack&&operator&&pressedSecondStack
 
 function detectInput(data: any) {
   console.log(data);
   if (typeof data == "number") {
     return "number";
-  } else if (typeof data == "string" && data !== "=") return "string";
+  } else if (typeof data == "string" && data !== "=" && data !== "reset")
+    return "string";
   else if (data == "=") return "equals";
+  else if (data == "reset") return "reset";
 }
