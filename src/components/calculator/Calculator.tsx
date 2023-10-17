@@ -1,70 +1,96 @@
-
-import { useState } from "react"
+import { useState } from "react";
 import styles from "./Calculator.module.css";
 import { FrameDisplay } from "../frameDisplay/FrameDisplay";
 import { FrameButtons } from "../frameButtons/FrameButtons";
 
-
 export function Calculator() {
+  const [pressedFirstStack, currentpressedFirstStack] = useState([""]);
+  const [pressedSecondStack, currentpressedSecondStack] = useState([""]);
+  const [result, setResult] = useState("");
+  const [operator, setOperator] = useState("");
 
-  const [pressedStack, currentPressedStack] = useState(['']);
-  const [operator,setOperator]= useState('');
-  
-console.log(operator)
+  console.log(operator);
 
- // riceve i dati dei bottoni dai figli
-  const pull_data = (data:any) => {
-    switch(detectInput(data)) {
-      case 'number':       
-          currentPressedStack(prevState => [...prevState, data]);   
-          break;
-          case 'string':
-            setOperator(data)
-            break
-          }
-        console.log(typeof(data))
-        console.log(pressedStack)
-      }
-      console.log(operator)
-      // const detectInput = (data:any) =>{
-    
-  //   if(typeof(data)=='number'){ 
-  //     console.log('sono un numero')
-  //   }
-  //   else if (typeof(data)=='string'){
-  //     console.log(data)
-  //     console.log('sono una stringa')
-  //   }
-  
-  // }
-
-  // useEffect(() => {
-  
-  // detectInput(pressedStack)
-  // console.log('ci entro')
-    
-  // }, [pull_data]);
-
-  console.log(parseInt(pressedStack.join('')));
-
-    return (
-        <div className={styles.calculatorWrapper}>
-          <FrameDisplay content={ (pressedStack + operator).replace(",", "") }/>
-        <FrameButtons func={pull_data} />
-        </div>
-      
-    );
-  }
-
-  function detectInput(data:any){
-   
-    if(typeof(data) =='number'){
-
-      return 'number'
+  // riceve i dati dei bottoni dai figli
+  const pull_data = (data: any) => {
+    switch (detectInput(data)) {
+      case "number":
+        if (operator) {
+          currentpressedSecondStack((prevState) => [...prevState, data]);
+        } else {
+          currentpressedFirstStack((prevState) => [...prevState, data]);
+        }
+        break;
+      case "string":
+        setOperator(data);
+        break;
+      case "equals":
+        doOperation(operator);
+        break;
     }
-    else return 'string'
+
+    // console.log(typeof data);
+    // console.log(pressedFirstStack);
+  };
+  // console.log(operator);
+
+  function doOperation(operator: any) {
+    let res;
+    const first = parseInt(pressedFirstStack.join(""));
+    const second = parseInt(pressedSecondStack.join(""));
+    console.log(operator);
+    switch (operator) {
+      // sum
+      case "+":
+        res = first + second;
+        setResult(res);
+        resetStacks();
+        break;
+      case "-":
+        res = first - second;
+        setResult(res);
+        resetStacks();
+        break;
+      case "x":
+        res = first * second;
+        setResult(res);
+        resetStacks();
+        break;
+      case "÷":
+        res = first / second;
+        setResult(res);
+        resetStacks();
+        break;
+      default:
+      // code block
+    }
   }
 
-  
+  console.log(result);
 
- 
+  function resetStacks() {
+    currentpressedSecondStack([""]);
+    currentpressedFirstStack([""]);
+    setOperator("");
+  }
+  return (
+    <div className={styles.calculatorWrapper}>
+      <FrameDisplay
+        firstContent={pressedFirstStack}
+        operator={operator}
+        secondContent={pressedSecondStack}
+        result={result}
+      />
+      <FrameButtons func={pull_data} />
+    </div>
+  );
+}
+// pressedFirstStack&&operator&&pressedSecondStack
+
+function detectInput(data: any) {
+  console.log(data);
+  if (typeof data == "number") {
+    return "number";
+  } else if (typeof data == "string" && data !== "=") return "string";
+  else if (data == "=") return "equals";
+}
