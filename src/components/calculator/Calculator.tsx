@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import styles from "./Calculator.module.css";
 import { FrameDisplay } from "../frameDisplay/FrameDisplay";
 import { FrameButtons } from "../frameButtons/FrameButtons";
 
 export function Calculator() {
-  const [pressedFirstStack, currentpressedFirstStack] = useState([""]);
-  const [pressedSecondStack, currentpressedSecondStack] = useState([""]);
-  const [result, setResult] = useState("");
-  const [operator, setOperator] = useState("");
+  const [pressedFirstStack, currentpressedFirstStack] = useState<
+    string[] | number[]
+  >([""]);
+  const [pressedSecondStack, currentpressedSecondStack] = useState<
+    string[] | number[]
+  >([""]);
+  const [result, setResult] = useState<number | string>("");
+  const [operator, setOperator] = useState<string>("");
 
   console.log(operator);
 
@@ -34,7 +39,7 @@ export function Calculator() {
     }
   };
 
-  function doOperation(operator: any) {
+  function doOperation(operator: string) {
     let res;
     const first = parseInt(pressedFirstStack.join(""));
     const second = parseInt(pressedSecondStack.join(""));
@@ -95,7 +100,7 @@ export function Calculator() {
   );
 }
 
-function detectInput(data: any) {
+function detectInput(data: string | number) {
   console.log(data);
   if (typeof data == "number") {
     return "number";

@@ -1,7 +1,7 @@
-.buttonStyle{
-    width: 33%;
-    height: 50px;
-    font-family: "digital-7";
-    font-size: 2em;
-    
+.buttonStyle {
+  width: 100px;
+  height: 60px;
+  font-family: "digital-7";
+  font-size: 2em;
+  border-radius: 50%;
 }

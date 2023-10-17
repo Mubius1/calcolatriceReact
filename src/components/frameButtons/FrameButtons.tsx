@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "../button/Button";
 import styles from "./FrameButtons.module.css";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from "./FrameDisplay.module.css";
 
 export function FrameDisplay(props: any) {

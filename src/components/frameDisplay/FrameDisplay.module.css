@@ -1,6 +1,9 @@
-.frame{
-    background-color: aqua;
-    font-family: "digital-7";
-    font-size: 2em;
-    width: 33%;
+.frame {
+  background-color: aqua;
+  font-family: "digital-7";
+  font-size: 2em;
+  height: 1em;
+  width: 450px;
+  border-radius: 15px 15px 0px 0px; /*TLBR TRBL*/
+  text-align: right;
 }

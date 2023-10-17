@@ -1,5 +1,6 @@
-.asd{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
+.asd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 450px;
 }
